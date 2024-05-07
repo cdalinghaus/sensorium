@@ -4,7 +4,7 @@ from src import constants
 
 image_size = (64, 64)
 batch_size = 32
-base_lr = 3e-4
+base_lr = 3e-5
 frame_stack_size = 16
 config = dict(
     image_size=image_size,
@@ -13,7 +13,7 @@ config = dict(
     min_base_lr=base_lr * 0.01,
     ema_decay=0.999,
     train_epoch_size=72000,
-    num_epochs=[3, 18],
+    num_epochs=[3, 180],
     stages=["warmup", "train"],
     num_dataloader_workers=8,
     init_weights=True,
@@ -58,7 +58,7 @@ config = dict(
         }),
         "responses_processor": ("identity", {}),
         "amp": True,
-        "iter_size": 1,
+        "iter_size": 3,
     },
     cutmix={
         "alpha": 1.0,

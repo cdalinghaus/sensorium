@@ -525,10 +525,11 @@ class DepthwiseCore(nn.Module):
         num_blocks = len(features)
         assert num_blocks and num_blocks == len(spatial_strides)
         next_num_features = features[0]
-        self.stem = nn.Sequential(
+        """self.stem = nn.Sequential(
             nn.Conv3d(in_channels, next_num_features, (1, 1, 1), bias=False),
             BatchNormAct(next_num_features, bn_layer=bn_layer, apply_act=False),
-        )
+        )"""
+        self.stem = mae_vit_base_patch16_dec512d8b()
 
         blocks = []
         for block_index in range(num_blocks):
@@ -557,8 +558,11 @@ class DepthwiseCore(nn.Module):
         self.blocks = nn.Sequential(*blocks)
 
     def forward(self, x):
+        #input torch.Size([10, 5, 16, 64, 64])                                                                                                                                                                      #output torch.Size([10, 256, 16, 8, 8])
+        #print("input", x.shape)
         x = self.stem(x)
-        x = self.blocks(x)
+        #x = self.blocks(x)
+        #print("output", x.shape)
         return x
 
 
